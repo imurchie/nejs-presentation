@@ -1,0 +1,170 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui')
+    title The Temporal Dead Zone
+
+    link(rel='stylesheet', type='text/css', href='lib/css/reveal.css')
+
+    link(rel='stylesheet', type='text/css', href='lib/css/zenburn.css')
+    link(rel='stylesheet', type='text/css', href='css/dark_sole.css')
+    link(rel='stylesheet', type='text/css', href='css/sole.css')
+
+    script(src='js/bundle.js', defer)
+
+  body
+
+    div.reveal
+      div(class='twitter', hidden) @imurchie
+      div.slides
+        section
+          h1 The<br /><strong>Temporal<br />Dead<br />Zone</strong><br />
+
+        section
+          h1 Isaac Murchie
+          h2 @imurchie
+
+        section
+          h1 I work at <br /><strong>Sauce Labs</strong>
+          h2.fragment I build testing tools
+          h3.fragment.roll-in Particularly <strong>Appium</strong>
+
+        section
+          h2 We recently decided to rewrite the whole thing in <strong>ES2015</strong>
+          h3.fragment And some <strong>ES7</strong>
+
+        section
+          h3 Along the way we got really excited about the new syntax
+          h2.fragment And by <strong>we</strong> we mean <strong>I</strong>
+
+        section(data-transition='zoom')
+          h1 So, what is <strong>new</strong>?
+
+        section
+          h1 Block scoping
+          h2.fragment and the <strong>Temporal Dead Zone</strong>
+
+        section
+          h2 First things first...
+          h3.fragment What is the outcome of the following code fragment?
+          pre.fragment
+            code(data-trim, contenteditable).
+              console.log(y);
+              var y = 9;
+          pre.fragment
+            code(data-trim).
+              undefined
+
+        section
+          h2 Why?
+          h1.fragment <strong>Hoisting</strong>!
+          pre.fragment
+            code(data-trim, contenteditable).
+              console.log(y);
+              var y = 9;
+          pre.fragment
+            code(data-trim, contenteditable).
+              var y;
+              console.log(y);
+              y = 9;
+
+        section
+          h2 Everything is function scope!
+          h3.fragment So if you want a locally-scoped variable, you need an "Immediately Invoked Function Expression"
+          pre.fragment
+            code(data-trim).
+              (function () {
+                var local = 'something';
+              })();
+              console.log(local);
+          pre.fragment
+            code(data-trim).
+              ReferenceError: local is not defined
+
+        section
+          h1 Enter <br /><strong>block scoping</strong><br />
+          h2 with <strong>let</strong> and <strong>const</strong>
+
+        section
+          h2 Returning to our code (slightly modified)...
+          h3.fragment What is the outcome of the following code fragment?
+          pre.fragment
+            code(data-trim, contenteditable).
+              console.log(y);
+              let y = 9;
+          pre.fragment
+            code(data-trim).
+              ReferenceError: can't access lexical declaration
+              'y' before initialization
+          h4.fragment This <strong>ReferenceError</strong> <em>is</em> the <strong>Temporal Dead Zone</strong>
+
+        section
+          h2 Further, consider this...
+          pre
+            code(data-trim).
+              let y = 99;
+              console.log(y);
+              if (true) {
+                let y = 42;
+                console.log(y);
+              }
+              console.log(y);
+          pre.fragment
+            code(data-trim).
+              99
+              42
+              99
+
+        section(data-background='img/dwyer.gif')
+
+        section
+          h2 One further note...
+          h3.fragment What happens with <strong>var</strong> and <strong>for</strong>?
+          pre.fragment
+            code(data-trim).
+              for (var i = 0; i < 3; i++) {
+                setTimeout(function () {
+                  console.log(i);
+                }, 10);
+              }
+          pre.fragment
+            code(data-trim).
+              2
+              2
+              2
+
+        section
+          h2 And with <strong>let</strong>?
+          pre.fragment
+            code(data-trim).
+              for (let i = 0; i < 3; i++) {
+                setTimeout(function () {
+                  console.log(i);
+                }, 10);
+              }
+          pre.fragment
+            code(data-trim).
+              0
+              1
+              2
+
+        section(data-background='img/dwyer.gif')
+
+        section
+          h2 So, with <strong>let</strong> (and <strong>const</strong>) we get real C-like scoping in JavaScript!
+          h3 If you're anything like me, this is exciting news!!!!
+          h4.fragment (Like, four exclamation point exciting!!!!)
+
+        section
+          h3 Technically speaking, <strong>hoisting</strong> still occurs, as the spec notes
+          blockquote The variables are created when their containing Lexical Environment is instantiated
+          h3 but with the added note that they can't be used before they are initialized
+          blockquote but may not be accessed in any way until the variable’s LexicalBinding is evaluated
+
+        section
+          h2 But what else is there in ES2015?
+
+        section
+          blockquote kthxbai
+
