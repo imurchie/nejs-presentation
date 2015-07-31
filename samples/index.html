@@ -2,7 +2,7 @@
   <head>
     <meta charset="utf-8">
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
-    <link rel="stylesheet" href="bower_components/highlightjs/styles/github.css">
+    <link rel="stylesheet" href="bower_components/highlightjs/styles/solarized_dark.css">
     <script src="bower_components/highlightjs/highlight.pack.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
 
@@ -31,24 +31,30 @@
     </script>
   </head>
   <body>
-    <pre>
-      <code class="javascript">
-        console.log(y);
-        let y = 9;
-        console.log(y);
-      </code>
-    </pre>
-    <a href="#" onClick="window.varSyntax();">run</a>
-    <div id="varOutputDiv"></div>
+    <div>
+      <div style="display:inline-block;">
+        <pre>
+          <code class="javascript">
+            console.log(y);
+            var y = 9;
+            console.log(y);
+          </code>
+        </pre>
+        <a href="#" onClick="window.varSyntax();">run</a>
+        <div id="varOutputDiv"></div>
+      </div>
 
-    <pre>
-      <code class="javascript">
-        console.log(y);
-        let y = 9;
-        console.log(y);
-      </code>
-    </pre>
-    <a href="#" onClick="window.letSyntax();">run</a>
-    <div id="letOutputDiv"></div>
+      <div style="display:inline-block;">
+        <pre>
+          <code class="javascript">
+            console.log(y);
+            let y = 9;
+            console.log(y);
+          </code>
+        </pre>
+        <a href="#" onClick="window.letSyntax();">run</a>
+        <div id="letOutputDiv"></div>
+      </div>
+    </div>
   </body>
 </html>
